@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charlie Charlie</title>
+  <title>Charlie Charlie Game</title>
 
   <style>
     body {
@@ -17,15 +17,17 @@
       height: 100vh;
       overflow: hidden;
       position: relative;
+      transition: background 0.3s;
     }
 
-    /* Candle & mist effects */
+    /* Mist + candle ambiance */
     .mist {
       position: absolute;
       inset: 0;
       background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 70%);
       filter: blur(15px);
       animation: mistMove 10s infinite ease-in-out;
+      z-index: 1;
     }
 
     @keyframes mistMove {
@@ -42,6 +44,7 @@
       border-radius: 5px;
       animation: flicker 0.15s infinite;
       box-shadow: 0 0 20px 5px #ff9a76;
+      z-index: 1;
     }
 
     .candle::before {
@@ -117,9 +120,7 @@
       box-shadow: 0 0 5px rgba(255,165,0,0.6);
     }
 
-    #pencil1 {
-      transform: rotate(90deg);
-    }
+    #pencil1 { transform: rotate(90deg); }
 
     .buttons {
       display: flex;
@@ -149,9 +150,7 @@
       transition: 0.2s;
     }
 
-    button:hover {
-      background: #ff6767;
-    }
+    button:hover { background: #ff6767; }
 
     #response {
       margin-top: 20px;
@@ -172,6 +171,25 @@
       to { width: 100%; }
     }
 
+    /* Screen flicker + flash */
+    .flicker {
+      animation: flickerScreen 0.5s 3;
+    }
+
+    @keyframes flickerScreen {
+      0%, 100% { filter: brightness(1); }
+      50% { filter: brightness(3); }
+    }
+
+    .flash {
+      background: red !important;
+      animation: flashScreen 0.3s ease-in-out;
+    }
+
+    @keyframes flashScreen {
+      0% { background: red; }
+      100% { background: radial-gradient(circle at center, #0a0a0a, #000); }
+    }
   </style>
 </head>
 <body>
@@ -179,7 +197,7 @@
   <div class="candle left"></div>
   <div class="candle right"></div>
 
-  <h1>Charlie Charlie</h1>
+  <h1>Charlie Charlie Challenge</h1>
   <div class="board">
     <div id="pencil1" class="pencil"></div>
     <div id="pencil2" class="pencil" style="transform: rotate(0deg);"></div>
@@ -209,6 +227,7 @@
       const pencil = document.getElementById('pencil2');
       const response = document.getElementById('response');
       const sound = document.getElementById('creepySound');
+      const body = document.body;
 
       if (!question) {
         response.innerText = "Please ask a question first...";
@@ -225,10 +244,23 @@
         const result = answers[Math.floor(Math.random() * answers.length)];
         const rotation = result === "Yes" ? 45 : -45;
         pencil.style.transform = `rotate(${rotation}deg)`;
-        setTimeout(() => typeText(response, `Charlie says: ${result}`), 2000);
+
+        // Flicker + flash effect when answer appears
+        setTimeout(() => {
+          body.classList.add('flicker');
+          setTimeout(() => {
+            body.classList.add('flash');
+            setTimeout(() => {
+              body.classList.remove('flash');
+              body.classList.remove('flicker');
+              typeText(response, `Charlie says: ${result}`);
+            }, 300);
+          }, 500);
+        }, 1500);
       }, 1500);
     }
   </script>
 </body>
 </html>
+
 
