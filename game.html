@@ -17,10 +17,9 @@
       height: 100vh;
       overflow: hidden;
       position: relative;
-      transition: background 0.3s;
+      margin: 0;
     }
 
-    /* Mist + candle ambiance */
     .mist {
       position: absolute;
       inset: 0;
@@ -157,6 +156,7 @@
       color: #ccc;
       height: 1.5em;
       z-index: 2;
+      white-space: pre; /* <-- keeps spacing for typing effect */
     }
 
     @keyframes shake {
@@ -166,14 +166,9 @@
       75% { transform: rotate(88deg); }
     }
 
-    @keyframes type {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
     /* Screen flicker + flash */
     .flicker {
-      animation: flickerScreen 0.5s 3;
+      animation: flickerScreen 0.3s 5;
     }
 
     @keyframes flickerScreen {
@@ -183,7 +178,7 @@
 
     .flash {
       background: red !important;
-      animation: flashScreen 0.3s ease-in-out;
+      animation: flashScreen 0.5s ease-in-out;
     }
 
     @keyframes flashScreen {
@@ -254,13 +249,11 @@
               body.classList.remove('flash');
               body.classList.remove('flicker');
               typeText(response, `Charlie says: ${result}`);
-            }, 300);
-          }, 500);
+            }, 500);
+          }, 300);
         }, 1500);
       }, 1500);
     }
   </script>
 </body>
 </html>
-
-
