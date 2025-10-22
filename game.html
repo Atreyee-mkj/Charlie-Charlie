@@ -255,5 +255,33 @@
       }, 1500);
     }
   </script>
+<!-- background hum -->
+<audio id="bgHum" src="BGmusic3.mp3" loop volume="0.3"></audio>
+
+<!-- whisper effects -->
+<audio id="whisper1" src="BGmusic1.mp3"></audio>
+<audio id="whisper2" src="BGmusic2.mp3"></audio>
+
+<script>
+const bgHum = document.getElementById('bgHum');
+const whispers = [
+  document.getElementById('whisper1'),
+  document.getElementById('whisper2')
+];
+
+// start the ambient hum when the page loads
+window.addEventListener('load', () => {
+  bgHum.volume = 0.25;
+  bgHum.play().catch(()=>{});
+});
+
+// randomly play a whisper after each question
+function playWhisper() {
+  const w = whispers[Math.floor(Math.random() * whispers.length)];
+  w.volume = 0.4;
+  w.currentTime = 0;
+  w.play();
+}
+</script>
 </body>
 </html>
