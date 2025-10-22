@@ -1,111 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Charlie Charlie Game</title>
-
-  <!-- Small local styles so this file is self-contained -->
+  <link rel="stylesheet" href="style.css" />
   <style>
-    :root {
-      --bg: #050505;
-      --accent: #f53636;
-      --muted: #ccc;
-      --pencil: #ffcf66;
+    body {
+      background: radial-gradient(circle at center, #111, #000);
+      color: white;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    html,body{
-      height:100%;
-      margin:0;
-      padding:0;
-      background:var(--bg);
-      color:#fff;
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ff4747;
+      text-shadow: 0 0 15px red;
     }
 
-    /* make page content a centered column */
-    .page {
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      gap:18px;
-      min-height:100vh;
-      box-sizing:border-box;
-      padding:28px 16px 80px;
-      position:relative;
-      z-index:2; /* content above the mist */
-      text-align:center;
+    .board {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      border: 2px solid #ff4747;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
     }
 
-    h1{
-      margin:18px 0 6px;
-      font-size:2rem;
-      color:var(--accent);
-      text-shadow:0 0 15px #ff0000, 0 0 25px #660000;
-      animation:flicker 3s infinite;
+    .board::before, .board::after {
+      content: "";
+      position: absolute;
+      background: #ff4747;
     }
 
-    @keyframes flicker{
-      0%,19%,21%,23%,25%,54%,56%,100%{ opacity:1; }
-      20%,24%,55%{ opacity:0.75; }
+    .board::before {
+      width: 100%;
+      height: 2px;
     }
 
-    /* mist/background orbs (behind content) */
-    .mist{
-      pointer-events:none;
-      position:fixed;
-      inset:0;
-      z-index:0;
-      overflow:hidden;
-    }
-    .orb{
-      position:absolute;
-      width:160px;
-      height:160px;
-      border-radius:50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 60%);
-      filter: blur(6px);
-      opacity:0.25;
-      animation: float 12s infinite ease-in-out;
-    }
-    .orb.o1 { left:6%; top:28%; animation-delay:0s; }
-    .orb.o2 { right:8%; top:50%; animation-delay:4s; }
-    .orb.o3 { left:42%; top:8%; animation-delay:7s; }
-    @keyframes float{
-      0%,100%{ transform:translateY(0); opacity:0.25; }
-      50%{ transform:translateY(-30px); opacity:0.7; }
+    .board::after {
+      height: 100%;
+      width: 2px;
     }
 
-    /* GAME container centers the cross */
-    .game-container{
-      width:320px;
-      max-width:90%;
-      height:320px;
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:2;
-      margin-top:12px;
+    .pencil {
+      position: absolute;
+      width: 220px;
+      height: 6px;
+      background: orange;
+      border-radius: 4px;
+      transform-origin: center center;
+      transition: transform 1.5s ease-out;
+      box-shadow: 0 0 5px rgba(255,165,0,0.6);
     }
 
-    /* pencil bars */
-    .pencil{
-      position:absolute;
-      width:100%;
-      height:6px;
-      background:var(--pencil);
-      border-radius:6px;
-      transform-origin:center center;
-      transition: transform 2s cubic-bezier(.2,.8,.2,1);
-      box-shadow:0 0 12px rgba(255,255,255,0.12);
+    #pencil1 {
+      transform: rotate(90deg);
     }
-    .pencil.vert{
-      transform:rotate(90deg);
-      /* small hover bob while idle */
-      animation: hoverP 3.5s infinite ease-in-out;
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
-    @keyframes hoverP{
-      0%,100%{ transform:translateY(0) rotate(90deg); }
-      50%{ transform:translateY(-6px) rotate(90deg); }
+
+    input {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      width: 250px;
+      font-size: 1em;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #ff4747;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #ff6767;
+    }
+
+    p {
+      margin-top: 20px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Charlie Charlie Challenge</h1>
+  <div class="board">
+    <div id="pencil1" class="pencil"></div>
+    <div id="pencil2" class="pencil" style="transform: rotate(0deg);"></div>
+  </div>
+
+  <div class="buttons">
+    <input id="question" type="text" placeholder="Ask your question..." />
+    <button onclick="askCharlie()">Ask Charlie</button>
+  </div>
+  <p id="response"></p>
+
+  <script>
+    function askCharlie() {
+      const question = document.getElementById('question').value.trim();
+      const pencil = document.getElementById('pencil2');
+      const response = document.getElementById('response');
+
+      if (!question) {
+        response.innerText = "Please ask a question first.";
+        return;
+      }
+
+      response.innerText = "Summoning Charlie...";
+      pencil.style.transform = 'rotate(0deg)';
+
+      setTimeout(() => {
+        const answers = ["Yes", "No"];
+        const result = answers[Math.floor(Math.random() * answers.length)];
+        const rotation = result === "Yes" ? 45 : -45;
+
+        pencil.style.transform = `rotate(${rotation}deg)`;
+        response.innerText = `Charlie says: ${result}`;
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
+
