@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Charlie Charlie</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-top: 40px;
+      color: #f53636;
+      text-shadow: 0 0 15px #ff0000;
+    }
+
+    .game-container {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin: 80px auto;
+    }
+
+    .pencil {
+      position: absolute;
+      width: 250px;
+      height: 4px;
+      background-color: #ffcf66;
+      top: 50%;
+      left: 0;
+      transform-origin: center center;
+      border-radius: 4px;
+      transition: transform 2s ease-out;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .pencil.vertical {
+      transform: rotate(90deg);
+    }
+
+    .labels {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    .labels span {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+
+    .labels .yes1 {
+      top: 20%;
+      left: 25%;
+      color: #4ef54e;
+    }
+    .labels .no1 {
+      top: 20%;
+      left: 75%;
+      color: #f54e4e;
+    }
+    .labels .no2 {
+      top: 75%;
+      left: 25%;
+      color: #f54e4e;
+    }
+    .labels .yes2 {
+      top: 75%;
+      left: 75%;
+      color: #4ef54e;
+    }
+
+    input {
+      width: 60%;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #f53636;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #b52c2c;
+    }
+  </style>
+</head>
+<body>
+  <h1>Charlie Charlie Challenge</h1>
+
+  <div class="game-container">
+    <div class="labels">
+      <span class="yes1">YES</span>
+      <span class="no1">NO</span>
+      <span class="no2">NO</span>
+      <span class="yes2">YES</span>
+    </div>
+    <div class="pencil" id="pencil-horizontal"></div>
+    <div class="pencil vertical" id="pencil-vertical"></div>
+  </div>
+
+  <input type="text" id="question" placeholder="Ask a yes/no question..." />
+  <br />
+  <button onclick="askCharlie()">Ask Charlie</button>
+
+  <script>
+    const pencil = document.getElementById("pencil-vertical");
+
+    function askCharlie() {
+      const question = document.getElementById("question").value.trim();
+      if (!question) {
+        alert("Please ask a question first!");
+        return;
+      }
+
+      const random = Math.random() > 0.5 ? "yes" : "no";
+      const angle = random === "yes" ? 45 : -45;
+
+      pencil.style.transform = `rotate(${90 + angle}deg)`;
+
+      setTimeout(() => {
+        alert(`Charlie says: ${random.toUpperCase()} 👻`);
+      }, 2200);
+    }
+  </script>
+</body>
+</html>
 
