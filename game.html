@@ -1,239 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charlie Charlie</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Charlie Charlie Game</title>
+
+  <!-- Small local styles so this file is self-contained -->
   <style>
-    body {
-      background-color: #050505;
-      color: #fff;
-      font-family: "Poppins", sans-serif;
-      text-align: center;
-      overflow: hidden;
+    :root {
+      --bg: #050505;
+      --accent: #f53636;
+      --muted: #ccc;
+      --pencil: #ffcf66;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-top: 40px;
-      color: #f53636;
-      text-shadow: 0 0 15px #ff0000, 0 0 25px #660000;
-      animation: flicker 3s infinite;
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:#fff;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.7;
-      }
+    /* make page content a centered column */
+    .page {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      gap:18px;
+      min-height:100vh;
+      box-sizing:border-box;
+      padding:28px 16px 80px;
+      position:relative;
+      z-index:2; /* content above the mist */
+      text-align:center;
     }
 
-    .mist {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      overflow: hidden;
-      z-index: 0;
+    h1{
+      margin:18px 0 6px;
+      font-size:2rem;
+      color:var(--accent);
+      text-shadow:0 0 15px #ff0000, 0 0 25px #660000;
+      animation:flicker 3s infinite;
     }
 
-    .orb {
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent);
-      border-radius: 50%;
+    @keyframes flicker{
+      0%,19%,21%,23%,25%,54%,56%,100%{ opacity:1; }
+      20%,24%,55%{ opacity:0.75; }
+    }
+
+    /* mist/background orbs (behind content) */
+    .mist{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      z-index:0;
+      overflow:hidden;
+    }
+    .orb{
+      position:absolute;
+      width:160px;
+      height:160px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 60%);
+      filter: blur(6px);
+      opacity:0.25;
       animation: float 12s infinite ease-in-out;
     }
-
-    .orb:nth-child(1) {
-      left: 10%;
-      top: 30%;
-      animation-delay: 0s;
-    }
-    .orb:nth-child(2) {
-      left: 70%;
-      top: 50%;
-      animation-delay: 4s;
-    }
-    .orb:nth-child(3) {
-      left: 40%;
-      top: 10%;
-      animation-delay: 7s;
+    .orb.o1 { left:6%; top:28%; animation-delay:0s; }
+    .orb.o2 { right:8%; top:50%; animation-delay:4s; }
+    .orb.o3 { left:42%; top:8%; animation-delay:7s; }
+    @keyframes float{
+      0%,100%{ transform:translateY(0); opacity:0.25; }
+      50%{ transform:translateY(-30px); opacity:0.7; }
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-        opacity: 0.3;
-      }
-      50% {
-        transform: translateY(-30px);
-        opacity: 0.7;
-      }
+    /* GAME container centers the cross */
+    .game-container{
+      width:320px;
+      max-width:90%;
+      height:320px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:2;
+      margin-top:12px;
     }
 
-    .game-container {
-      position: relative;
-      width: 250px;
-      height: 250px;
-      margin: 80px auto;
-      z-index: 1;
+    /* pencil bars */
+    .pencil{
+      position:absolute;
+      width:100%;
+      height:6px;
+      background:var(--pencil);
+      border-radius:6px;
+      transform-origin:center center;
+      transition: transform 2s cubic-bezier(.2,.8,.2,1);
+      box-shadow:0 0 12px rgba(255,255,255,0.12);
     }
-
-    .pencil {
-      position: absolute;
-      width: 250px;
-      height: 4px;
-      background-color: #ffcf66;
-      top: 50%;
-      left: 0;
-      transform-origin: center center;
-      border-radius: 4px;
-      transition: transform 2s ease-out;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    .pencil.vert{
+      transform:rotate(90deg);
+      /* small hover bob while idle */
+      animation: hoverP 3.5s infinite ease-in-out;
     }
-
-    .pencil.vertical {
-      transform: rotate(90deg);
-      animation: hoverPencil 3s infinite ease-in-out;
-    }
-
-    @keyframes hoverPencil {
-      0%, 100% {
-        transform: translateY(0) rotate(90deg);
-      }
-      50% {
-        transform: translateY(-5px) rotate(90deg);
-      }
-    }
-
-    .labels {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #ccc;
-    }
-
-    .labels span {
-      position: absolute;
-      transform: translate(-50%, -50%);
-    }
-
-    .labels .yes1 {
-      top: 20%;
-      left: 25%;
-      color: #4ef54e;
-    }
-    .labels .no1 {
-      top: 20%;
-      left: 75%;
-      color: #f54e4e;
-    }
-    .labels .no2 {
-      top: 75%;
-      left: 25%;
-      color: #f54e4e;
-    }
-    .labels .yes2 {
-      top: 75%;
-      left: 75%;
-      color: #4ef54e;
-    }
-
-    input {
-      width: 60%;
-      padding: 10px;
-      margin-top: 20px;
-      border: none;
-      border-radius: 6px;
-      outline: none;
-      font-size: 1rem;
-      text-align: center;
-      background: rgba(255,255,255,0.1);
-      color: white;
-    }
-
-    button {
-      margin-top: 20px;
-      background-color: #f53636;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.3s ease, transform 0.2s;
-    }
-
-    button:hover {
-      background-color: #b52c2c;
-      transform: scale(1.05);
-    }
-  </style>
-</head>
-<body>
-  <audio id="bg-sound" loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/31/audio_712a2636b0.mp3" type="audio/mpeg" />
-  </audio>
-
-  <h1>Charlie Charlie Challenge</h1>
-
-  <div class="mist">
-    <div class="orb"></div>
-    <div class="orb"></div>
-    <div class="orb"></div>
-  </div>
-
-  <div class="game-container">
-    <div class="labels">
-      <span class="yes1">YES</span>
-      <span class="no1">NO</span>
-      <span class="no2">NO</span>
-      <span class="yes2">YES</span>
-    </div>
-    <div class="pencil" id="pencil-horizontal"></div>
-    <div class="pencil vertical" id="pencil-vertical"></div>
-  </div>
-
-  <input type="text" id="question" placeholder="Ask a yes/no question..." />
-  <br />
-  <button onclick="askCharlie()">Ask Charlie</button>
-
-  <script>
-    const pencil = document.getElementById("pencil-vertical");
-    const sound = document.getElementById("bg-sound");
-
-    function askCharlie() {
-      const question = document.getElementById("question").value.trim();
-      if (!question) {
-        alert("Please ask a question first!");
-        return;
-      }
-
-      // Start spooky background sound
-      sound.play();
-
-      // Random outcome
-      const random = Math.random() > 0.5 ? "yes" : "no";
-      const angle = random === "yes" ? 45 : -45;
-
-      // Spin effect
-      pencil.style.transition = "transform 2s ease-out";
-      pencil.style.transform = `rotate(${90 + (Math.random() * 720 + angle)}deg)`;
-
-      setTimeout(() => {
-        alert(`Charlie says: ${random.toUpperCase()} 👻`);
-      }, 2500);
-    }
-  </script>
-</body>
-</html>
-
-
+    @keyframes hoverP{
+      0%,100%{ transform:translateY(0) rotate(90deg); }
+      50%{ transform:translateY(-6px) rotate(90deg); }
