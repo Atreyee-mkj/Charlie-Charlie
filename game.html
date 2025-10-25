@@ -283,5 +283,49 @@ function playWhisper() {
   w.play();
 }
 </script>
+
+<script>
+const topPencil = document.getElementById("top-pencil");
+const bottomPencil = document.getElementById("bottom-pencil");
+const answerText = document.getElementById("charlieSays");
+const scratch = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_f144a13b3e.mp3?filename=pen-on-paper-13906.mp3");
+
+function askCharlie() {
+  const question = document.getElementById("question").value.trim();
+  if (!question) {
+    answerText.textContent = "Ask something first...";
+    return;
+  }
+
+  answerText.textContent = "Charlie is thinking...";
+  answerText.style.opacity = 0.8;
+
+  // subtle shaking animation (builds tension)
+  topPencil.style.animation = "tremble 0.2s infinite";
+  bottomPencil.style.animation = "tremble 0.2s infinite";
+
+  setTimeout(() => {
+    const answers = ["YES", "NO"];
+    const finalAnswer = answers[Math.floor(Math.random() * answers.length)];
+
+    // stop trembling, play sound, then rotate dramatically
+    topPencil.style.animation = "none";
+    bottomPencil.style.animation = "none";
+    scratch.play();
+
+    if (finalAnswer === "YES") {
+      topPencil.style.transform = "rotate(45deg)";
+    } else {
+      topPencil.style.transform = "rotate(-45deg)";
+    }
+
+    setTimeout(() => {
+      answerText.textContent = `Charlie says ${finalAnswer}...`;
+      answerText.style.opacity = 1;
+    }, 1500);
+  }, 3000);
+}
+</script>
+
 </body>
 </html>
