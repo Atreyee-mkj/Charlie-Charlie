@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Lore of Charlie</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: radial-gradient(black, #1a0000);
+      color: #e6c8a0;
+      font-family: 'Creepster', cursive;
+      padding: 50px;
+      line-height: 1.8;
+      animation: flicker 3s infinite alternate;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff0000;
+      text-shadow: 0 0 15px red;
+    }
+
+    p {
+      font-size: 1.2em;
+      opacity: 0;
+      animation: fadeIn 4s ease forwards;
+      animation-delay: 1s;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes flicker {
+      0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 0 0 4px #ff0000, 0 0 11px #ff0000, 0 0 19px #ff0000;
+      }
+      20%, 24%, 55% {
+        text-shadow: none;
+      }
+    }
+
+    a {
+      color: #ff5555;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>📖 The Lore of Charlie</h1>
+  <p>
+    They say Charlie was once a boy trapped between worlds — neither spirit nor shadow.  
+    His whispers linger in the air where games blur with belief.  
+    Children once called to him for answers... but few remember what they asked.
+
+    The modern "Charlie Charlie" challenge is a modern incarnation of the Spanish game Juego de la Lapicera.
+    It has been played for generations in Spanish-speaking countries, functioning similarly to a "poor man's Ouija board"
+  </p>
+
+  <p>
+    Those who mocked the ritual claimed the pencils moved on their own.  
+    Those who didn’t — never spoke again.  
+    Charlie listens. Always.
+  </p>
+
+  <p style="text-align:center; margin-top:50px;">
+    <a href="game.html">⬅ Return to the game</a>
+  </p>
+
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_99373bb0f9.mp3?filename=whisper-ambient.mp3" type="audio/mpeg">
+  </audio>
+</body>
+</html>
