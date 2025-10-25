@@ -4,7 +4,105 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Charlie Charlie Game</title>
+</head>
+<body>
+  <div class="mist"></div>
+  <div class="candle left"></div>
+  <div class="candle right"></div>
 
+  <h1>Charlie Charlie Challenge</h1>
+  <div class="board">
+    <div id="pencil1" class="pencil"></div>
+    <div id="pencil2" class="pencil" style="transform: rotate(0deg);"></div>
+  </div>
+
+  <div class="buttons">
+    <input id="question" type="text" placeholder="Ask your question..." />
+    <button onclick="askCharlie()">Ask Charlie</button>
+  </div>
+  <p id="response"></p>
+
+  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2021/09/15/audio_b9a82c54fb.mp3"></audio>
+
+  <script>
+    function typeText(element, text) {
+      element.innerText = "";
+      let i = 0;
+      const interval = setInterval(() => {
+        element.innerText += text[i];
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 100);
+    }
+
+    function askCharlie() {
+      const question = document.getElementById('question').value.trim();
+      const pencil = document.getElementById('pencil2');
+      const response = document.getElementById('response');
+      const sound = document.getElementById('creepySound');
+      const body = document.body;
+
+      if (!question) {
+        response.innerText = "Please ask a question first...";
+        return;
+      }
+
+      response.innerText = "";
+      pencil.style.animation = "shake 0.1s infinite";
+      sound.play();
+
+      setTimeout(() => {
+        pencil.style.animation = "none";
+        const answers = ["Yes", "No"];
+        const result = answers[Math.floor(Math.random() * answers.length)];
+        const rotation = result === "Yes" ? 45 : -45;
+        pencil.style.transform = `rotate(${rotation}deg)`;
+
+        // Flicker + flash effect when answer appears
+        setTimeout(() => {
+          body.classList.add('flicker');
+          setTimeout(() => {
+            body.classList.add('flash');
+            setTimeout(() => {
+              body.classList.remove('flash');
+              body.classList.remove('flicker');
+              typeText(response, `Charlie says: ${result}`);
+            }, 500);
+          }, 300);
+        }, 1500);
+      }, 1500);
+    }
+  </script>
+<!-- background hum -->
+<audio id="bgHum" src="BGmusic3.mp3" loop volume="0.3"></audio>
+
+<!-- whisper effects -->
+<audio id="whisper1" src="BGmusic1.mp3"></audio>
+<audio id="whisper2" src="BGmusic2.mp3"></audio>
+
+<script>
+const bgHum = document.getElementById('bgHum');
+const whispers = [
+  document.getElementById('whisper1'),
+  document.getElementById('whisper2')
+];
+
+// start the ambient hum when the page loads
+window.addEventListener('load', () => {
+  bgHum.volume = 0.25;
+  bgHum.play().catch(()=>{});
+});
+
+// randomly play a whisper after each question
+function playWhisper() {
+  const w = whispers[Math.floor(Math.random() * whispers.length)];
+  w.volume = 0.4;
+  w.currentTime = 0;
+  w.play();
+}
+</script>
+
+<script>
   <style>
     body {
       background: radial-gradient(circle at center, #0a0a0a, #000);
@@ -185,105 +283,6 @@
       0% { background: red; }
       100% { background: radial-gradient(circle at center, #0a0a0a, #000); }
     }
-  </style>
-</head>
-<body>
-  <div class="mist"></div>
-  <div class="candle left"></div>
-  <div class="candle right"></div>
-
-  <h1>Charlie Charlie Challenge</h1>
-  <div class="board">
-    <div id="pencil1" class="pencil"></div>
-    <div id="pencil2" class="pencil" style="transform: rotate(0deg);"></div>
-  </div>
-
-  <div class="buttons">
-    <input id="question" type="text" placeholder="Ask your question..." />
-    <button onclick="askCharlie()">Ask Charlie</button>
-  </div>
-  <p id="response"></p>
-
-  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2021/09/15/audio_b9a82c54fb.mp3"></audio>
-
-  <script>
-    function typeText(element, text) {
-      element.innerText = "";
-      let i = 0;
-      const interval = setInterval(() => {
-        element.innerText += text[i];
-        i++;
-        if (i >= text.length) clearInterval(interval);
-      }, 100);
-    }
-
-    function askCharlie() {
-      const question = document.getElementById('question').value.trim();
-      const pencil = document.getElementById('pencil2');
-      const response = document.getElementById('response');
-      const sound = document.getElementById('creepySound');
-      const body = document.body;
-
-      if (!question) {
-        response.innerText = "Please ask a question first...";
-        return;
-      }
-
-      response.innerText = "";
-      pencil.style.animation = "shake 0.1s infinite";
-      sound.play();
-
-      setTimeout(() => {
-        pencil.style.animation = "none";
-        const answers = ["Yes", "No"];
-        const result = answers[Math.floor(Math.random() * answers.length)];
-        const rotation = result === "Yes" ? 45 : -45;
-        pencil.style.transform = `rotate(${rotation}deg)`;
-
-        // Flicker + flash effect when answer appears
-        setTimeout(() => {
-          body.classList.add('flicker');
-          setTimeout(() => {
-            body.classList.add('flash');
-            setTimeout(() => {
-              body.classList.remove('flash');
-              body.classList.remove('flicker');
-              typeText(response, `Charlie says: ${result}`);
-            }, 500);
-          }, 300);
-        }, 1500);
-      }, 1500);
-    }
-  </script>
-<!-- background hum -->
-<audio id="bgHum" src="BGmusic3.mp3" loop volume="0.3"></audio>
-
-<!-- whisper effects -->
-<audio id="whisper1" src="BGmusic1.mp3"></audio>
-<audio id="whisper2" src="BGmusic2.mp3"></audio>
-
-<script>
-const bgHum = document.getElementById('bgHum');
-const whispers = [
-  document.getElementById('whisper1'),
-  document.getElementById('whisper2')
-];
-
-// start the ambient hum when the page loads
-window.addEventListener('load', () => {
-  bgHum.volume = 0.25;
-  bgHum.play().catch(()=>{});
-});
-
-// randomly play a whisper after each question
-function playWhisper() {
-  const w = whispers[Math.floor(Math.random() * whispers.length)];
-  w.volume = 0.4;
-  w.currentTime = 0;
-  w.play();
-}
-</script>
-
 <script>
 const topPencil = document.getElementById("top-pencil");
 const bottomPencil = document.getElementById("bottom-pencil");
