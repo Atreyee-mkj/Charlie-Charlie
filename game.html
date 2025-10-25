@@ -5,20 +5,143 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Charlie Charlie Game</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: "Creepster", cursive;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 3px;
+      margin-top: 20px;
+      color: crimson;
+      text-shadow: 0 0 10px red, 0 0 20px darkred;
+      animation: flicker 2s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+      }
+      20%, 24%, 55% {
+        opacity: 0.4;
+      }
+    }
+
+    #board {
+      margin: 50px auto;
+      width: 300px;
+      height: 300px;
+      border: 2px solid crimson;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pencil {
+      width: 200px;
+      height: 6px;
+      background: #b87333;
+      position: absolute;
+      border-radius: 3px;
+      transition: transform 2s ease;
+    }
+
+    .vertical {
+      transform: rotate(90deg);
+    }
+
+    input {
+      background: #111;
+      color: white;
+      border: 1px solid crimson;
+      padding: 10px;
+      width: 70%;
+      border-radius: 5px;
+    }
+
+    button {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-left: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: darkred;
+    }
+
+    #charlieSays {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 1s;
+      letter-spacing: 2px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      color: crimson;
+      text-decoration: none;
+      border-bottom: 1px solid crimson;
+    }
+
+    a:hover {
+      color: white;
+      border-color: white;
+    }
+
+    @keyframes flash {
+      0%, 50%, 100% { background-color: black; }
+      25%, 75% { background-color: darkred; }
+    }
+  </style>
 </head>
 <body>
   <h1>Charlie Charlie</h1>
 
-  <input id="question" placeholder="Ask Charlie your question..." />
-  <button onclick="askCharlie()">Ask Charlie</button>
+  <div id="board">
+    <div id="pencil1" class="pencil"></div>
+    <div id="pencil2" class="pencil vertical"></div>
+  </div>
+
+  <input id="question" placeholder="Ask Charlie your question...">
+  <button onclick="askCharlie()">Ask</button>
 
   <h2 id="charlieSays"></h2>
 
+  <a href="lore.html">Read the Lore →</a>
+
+  <audio id="bgMusic" src="BGmusic1.mp3" loop></audio>
+  <audio id="whisper" src="BGmusic2.mp3"></audio>
+
   <script>
+    const pencil1 = document.getElementById('pencil1');
+    const pencil2 = document.getElementById('pencil2');
+    const charlieSays = document.getElementById('charlieSays');
+    const bgMusic = document.getElementById('bgMusic');
+    const whisper = document.getElementById('whisper');
+
+    bgMusic.volume = 0.4;
+    whisper.volume = 0.6;
+
+    window.onload = () => {
+      bgMusic.play().catch(() => {
+        console.log("Autoplay blocked, will start on click.");
+      });
+    };
+
     function askCharlie() {
-      alert("Button works!");
-    }
-  </script>
-</body>
-</html>
+      document.body.style.animation =
+
 
