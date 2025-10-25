@@ -47,15 +47,12 @@
     }
   </style>
 </head>
-<body>
+<body onclick="startWhispers()">
   <h1>📖 The Lore of Charlie</h1>
   <p>
     They say Charlie was once a boy trapped between worlds — neither spirit nor shadow.  
     His whispers linger in the air where games blur with belief.  
     Children once called to him for answers... but few remember what they asked.
-
-    The modern "Charlie Charlie" challenge is a modern incarnation of the Spanish game Juego de la Lapicera.
-    It has been played for generations in Spanish-speaking countries, functioning similarly to a "poor man's Ouija board"
   </p>
 
   <p>
@@ -68,8 +65,31 @@
     <a href="game.html">⬅ Return to the game</a>
   </p>
 
-  <audio autoplay loop>
+  <audio id="bg" autoplay loop>
     <source src="https://cdn.pixabay.com/download/audio/2023/03/28/audio_99373bb0f9.mp3?filename=whisper-ambient.mp3" type="audio/mpeg">
   </audio>
+
+  <script>
+    const whispers = [
+      "https://cdn.pixabay.com/download/audio/2023/05/30/audio_b8a7c1798b.mp3?filename=creepy-ghost-whisper-146195.mp3",
+      "https://cdn.pixabay.com/download/audio/2023/06/10/audio_7d3b3fbaed.mp3?filename=haunting-female-voice-148303.mp3",
+      "https://cdn.pixabay.com/download/audio/2023/06/07/audio_7ef91509ea.mp3?filename=ghostly-breathing-148046.mp3"
+    ];
+
+    let whisperTimer;
+
+    function startWhispers() {
+      if (whisperTimer) return; // already running
+
+      whisperTimer = setInterval(() => {
+        const randomWhisper = new Audio(
+          whispers[Math.floor(Math.random() * whispers.length)]
+        );
+        randomWhisper.volume = 0.2;
+        randomWhisper.play();
+      }, 10000 + Math.random() * 5000);
+    }
+  </script>
 </body>
+
 </html>
