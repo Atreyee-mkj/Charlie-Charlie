@@ -56,3 +56,12 @@ h1 {
   background: #d32f2f;
 }
 
+@keyframes tremble {
+  0% { transform: rotate(0deg) translate(0, 0); }
+  25% { transform: rotate(0.5deg) translate(1px, -1px); }
+  50% { transform: rotate(-0.5deg) translate(-1px, 1px); }
+  75% { transform: rotate(0.5deg) translate(-1px, 0px); }
+  100% { transform: rotate(-0.5deg) translate(0px, 1px); }
+}
+
+
