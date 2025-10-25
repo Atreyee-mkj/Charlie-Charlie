@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Lore of Charlie</title>
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background: radial-gradient(black, #1a0000);
-      color: #e6c8a0;
+      background: black;
+      color: #ff4444;
       font-family: 'Creepster', cursive;
-      padding: 50px;
-      line-height: 1.8;
-      animation: flicker 3s infinite alternate;
-    }
-
-    h1 {
+      text-shadow: 0 0 8px #ff0000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
       text-align: center;
-      color: #ff0000;
-      text-shadow: 0 0 15px red;
     }
 
     p {
-      font-size: 1.2em;
-      opacity: 0;
-      animation: fadeIn 4s ease forwards;
-      animation-delay: 1s;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
+      max-width: 700px;
+      font-size: 1.4rem;
+      line-height: 1.8;
+      animation: flicker 2s infinite alternate;
     }
 
     @keyframes flicker {
-      0%, 18%, 22%, 25%, 53%, 57%, 100% {
-        text-shadow: 0 0 4px #ff0000, 0 0 11px #ff0000, 0 0 19px #ff0000;
-      }
-      20%, 24%, 55% {
-        text-shadow: none;
-      }
+      0% { opacity: 1; }
+      50% { opacity: 0.8; }
+      100% { opacity: 1; }
     }
 
     a {
-      color: #ff5555;
+      color: #ff7777;
+      margin-top: 30px;
       text-decoration: none;
+      font-size: 1.2rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
-<body onclick="startWhispers()">
-  <h1>📖 The Lore of Charlie</h1>
+<body>
+  <h1>The Legend of Charlie</h1>
+  <p>
+    They say Charlie was once a boy who spoke to spirits through the simplest of things —
+    a pencil, a whisper, a dare. Every time someone asks, “Charlie, Charlie, are you there?”,
+    the veil thins. The more you ask, the more real he becomes...
+  </p>
   <p>
     They say Charlie was once a boy trapped between worlds — neither spirit nor shadow.  
     His whispers linger in the air where games blur with belief.  
