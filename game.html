@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="style.css">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Charlie Charlie Game</title>
-
   <style>
     body {
       background: radial-gradient(circle at center, #0a0a0a, #000);
@@ -200,11 +200,11 @@
 
   <div class="buttons">
     <input id="question" type="text" placeholder="Ask your question..." />
-    <button onclick="askCharlie()">Ask Charlie</button>
+    <button onclick="askCharlie(playWhisper();)">Ask Charlie</button>
   </div>
   <p id="response"></p>
 
-  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2021/09/15/audio_b9a82c54fb.mp3"></audio>
+  <audio id="BGmusic3" src="BGmusic3.mp3"></audio>
 
   <script>
     function typeText(element, text) {
@@ -255,6 +255,37 @@
       }, 1500);
     }
   </script>
+
+<!-- background hum -->
+<audio id="BGmusic3" src="BGmusic3.mp3" loop volume="0.3"></audio>
+
+<!-- whisper effects -->
+<audio id="BGmusic1" src="BGmusic1.mp3"></audio>
+<audio id="BGmusic2" src="BGmusic2.mp3"></audio>
+
+<script>
+const bgHum = document.getElementById('bgHum');
+const whispers = [
+  document.getElementById('BGmusic1'),
+  document.getElementById('BGmusic2')
+];
+
+// start the ambient hum when the page loads
+window.addEventListener('load', () => {
+  bgHum.volume = 0.25;
+  bgHum.play().catch(()=>{});
+});
+
+// randomly play a whisper after each question
+function playWhisper() {
+  const w = BGmusics[Math.floor(Math.random() * BGmusics.length)];
+  w.volume = 0.7;
+  w.currentTime = 0;
+  w.play();
+}
+</script>
+<a href="lore.html"> Read the lore of Charlie </a>
+
 </body>
 </html>
 
