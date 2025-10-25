@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,16 +201,11 @@
 
   <div class="buttons">
     <input id="question" type="text" placeholder="Ask your question..." />
-    <button onclick="askCharlie()sound.play();
-const randomBGmusic = BGmusic[Math.floor(Math.random() * BGmusic.length)];
-setTimeout(() => randomWhisper.play(), 800);
-">Ask Charlie</button>
+    <button onclick="askCharlie()">Ask Charlie</button>
   </div>
   <p id="response"></p>
-<audio id="BGmusic1" src="BGmusic1.mp3"></audio>
-<audio id="BGmusic2" src="BGmusic2.mp3"></audio>
 
-  <audio id="BGmusic3" src="BGmusic3.mp3"></audio>
+  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2021/09/15/audio_b9a82c54fb.mp3"></audio>
 
   <script>
     function typeText(element, text) {
@@ -227,11 +223,6 @@ setTimeout(() => randomWhisper.play(), 800);
       const pencil = document.getElementById('pencil2');
       const response = document.getElementById('response');
       const sound = document.getElementById('creepySound');
-      const whispers = [
-  document.getElementById('whisper1'),
-  document.getElementById('whisper2')
-];
-
       const body = document.body;
 
       if (!question) {
@@ -248,7 +239,7 @@ setTimeout(() => randomWhisper.play(), 800);
         const answers = ["Yes", "No"];
         const result = answers[Math.floor(Math.random() * answers.length)];
         const rotation = result === "Yes" ? 45 : -45;
-        pencil.style.transform = `rotate(${rotation}deg)`;
+        pencil.style.transform = rotate(${rotation}deg);
 
         // Flicker + flash effect when answer appears
         setTimeout(() => {
@@ -258,20 +249,7 @@ setTimeout(() => randomWhisper.play(), 800);
             setTimeout(() => {
               body.classList.remove('flash');
               body.classList.remove('flicker');
-              typeText(response, `Charlie says: ${result}`);
-              const bloodText = document.createElement("div");
-bloodText.innerText = "He’s listening...";
-bloodText.style.position = "absolute";
-bloodText.style.bottom = "10%";
-bloodText.style.color = "rgba(255,0,0,0)";
-bloodText.style.fontSize = "1.5em";
-bloodText.style.transition = "opacity 4s ease";
-bloodText.style.textShadow = "0 0 20px red";
-bloodText.style.zIndex = "3";
-document.body.appendChild(bloodText);
-setTimeout(() => bloodText.style.color = "rgba(255,0,0,0.8)", 200);
-setTimeout(() => bloodText.remove(), 6000);
-
+              typeText(response, Charlie says: ${result});
             }, 500);
           }, 300);
         }, 1500);
