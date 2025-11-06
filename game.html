@@ -1,261 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charlie Charlie Game</title>
-
-  <style>
-    body {
-      background: radial-gradient(circle at center, #0a0a0a, #000);
-      color: white;
-      font-family: "Poppins", sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-      margin: 0;
-    }
-
-    .mist {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent 70%);
-      filter: blur(15px);
-      animation: mistMove 10s infinite ease-in-out;
-      z-index: 1;
-    }
-
-    @keyframes mistMove {
-      0%, 100% { transform: translateX(0); opacity: 0.6; }
-      50% { transform: translateX(30px); opacity: 1; }
-    }
-
-    .candle {
-      position: absolute;
-      bottom: 10%;
-      width: 20px;
-      height: 60px;
-      background: linear-gradient(to bottom, #ff9a76, #b34a00);
-      border-radius: 5px;
-      animation: flicker 0.15s infinite;
-      box-shadow: 0 0 20px 5px #ff9a76;
-      z-index: 1;
-    }
-
-    .candle::before {
-      content: "";
-      position: absolute;
-      top: -25px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 10px;
-      height: 20px;
-      background: radial-gradient(circle, #ffcc33, transparent);
-      border-radius: 50%;
-      animation: flameFlicker 0.3s infinite alternate;
-    }
-
-    .candle.left { left: 20%; }
-    .candle.right { right: 20%; }
-
-    @keyframes flicker {
-      0%, 100% { box-shadow: 0 0 10px 4px #ff9a76; }
-      50% { box-shadow: 0 0 25px 8px #ffb06b; }
-    }
-
-    @keyframes flameFlicker {
-      from { transform: translateX(-50%) scaleY(1); opacity: 1; }
-      to { transform: translateX(-48%) scaleY(1.2); opacity: 0.9; }
-    }
-
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      color: #ff4747;
-      text-shadow: 0 0 15px red;
-      z-index: 2;
-    }
-
-    .board {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      border: 2px solid #ff4747;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 30px;
-      z-index: 2;
-    }
-
-    .board::before, .board::after {
-      content: "";
-      position: absolute;
-      background: #ff4747;
-    }
-
-    .board::before {
-      width: 100%;
-      height: 2px;
-    }
-
-    .board::after {
-      height: 100%;
-      width: 2px;
-    }
-
-    .pencil {
-      position: absolute;
-      width: 220px;
-      height: 6px;
-      background: orange;
-      border-radius: 4px;
-      transform-origin: center center;
-      transition: transform 2s ease-out;
-      box-shadow: 0 0 5px rgba(255,165,0,0.6);
-    }
-
-    #pencil1 { transform: rotate(90deg); }
-
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      z-index: 2;
-    }
-
-    input {
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      width: 250px;
-      font-size: 1em;
-      text-align: center;
-    }
-
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      background: #ff4747;
-      color: white;
-      font-size: 1em;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover { background: #ff6767; }
-
-    #response {
-      margin-top: 20px;
-      color: #ccc;
-      height: 1.5em;
-      z-index: 2;
-      white-space: pre; /* <-- keeps spacing for typing effect */
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: rotate(90deg); }
-      25% { transform: rotate(85deg); }
-      50% { transform: rotate(95deg); }
-      75% { transform: rotate(88deg); }
-    }
-
-    /* Screen flicker + flash */
-    .flicker {
-      animation: flickerScreen 0.3s 5;
-    }
-
-    @keyframes flickerScreen {
-      0%, 100% { filter: brightness(1); }
-      50% { filter: brightness(3); }
-    }
-
-    .flash {
-      background: red !important;
-      animation: flashScreen 0.5s ease-in-out;
-    }
-
-    @keyframes flashScreen {
-      0% { background: red; }
-      100% { background: radial-gradient(circle at center, #0a0a0a, #000); }
-    }
-  </style>
+  <title>Charlie Charlie</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="mist"></div>
-  <div class="candle left"></div>
-  <div class="candle right"></div>
+  <div class="container">
+    <h1>Charlie<br>Charlie</h1>
+    <div class="board">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+    </div>
 
-  <h1>Charlie Charlie Challenge</h1>
-  <div class="board">
-    <div id="pencil1" class="pencil"></div>
-    <div id="pencil2" class="pencil" style="transform: rotate(0deg);"></div>
+    <div class="controls">
+      <input type="text" id="question" placeholder="Ask Charlie your question...">
+      <button id="askButton">Ask</button>
+      <a href="lore.html" class="lore-link">Read the Lore →</a>
+    </div>
+
+    <p id="charlieResponse"></p>
   </div>
 
-  <div class="buttons">
-    <input id="question" type="text" placeholder="Ask your question..." />
-    <button onclick="askCharlie()">Ask Charlie</button>
-  </div>
-  <p id="response"></p>
+  <audio id="bgmusic3" src="BGmusic3.mp3" loop></audio>
+  <audio id="whisper1" src="BGmusic1.mp3"></audio>
+  <audio id="whisper2" src="BGmusic2.mp3"></audio>
 
-  <audio id="creepySound" src="https://cdn.pixabay.com/audio/2021/09/15/audio_b9a82c54fb.mp3"></audio>
-
-  <script>
-    function typeText(element, text) {
-      element.innerText = "";
-      let i = 0;
-      const interval = setInterval(() => {
-        element.innerText += text[i];
-        i++;
-        if (i >= text.length) clearInterval(interval);
-      }, 100);
-    }
-
-    function askCharlie() {
-      const question = document.getElementById('question').value.trim();
-      const pencil = document.getElementById('pencil2');
-      const response = document.getElementById('response');
-      const sound = document.getElementById('creepySound');
-      const body = document.body;
-
-      if (!question) {
-        response.innerText = "Please ask a question first...";
-        return;
-      }
-
-      response.innerText = "";
-      pencil.style.animation = "shake 0.1s infinite";
-      sound.play();
-
-      setTimeout(() => {
-        pencil.style.animation = "none";
-        const answers = ["Yes", "No"];
-        const result = answers[Math.floor(Math.random() * answers.length)];
-        const rotation = result === "Yes" ? 45 : -45;
-        pencil.style.transform = rotate(${rotation}deg);
-
-        // Flicker + flash effect when answer appears
-        setTimeout(() => {
-          body.classList.add('flicker');
-          setTimeout(() => {
-            body.classList.add('flash');
-            setTimeout(() => {
-              body.classList.remove('flash');
-              body.classList.remove('flicker');
-              typeText(response, Charlie says: ${result});
-            }, 500);
-          }, 300);
-        }, 1500);
-      }, 1500);
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
 
