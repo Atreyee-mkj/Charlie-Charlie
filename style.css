@@ -1,67 +1,99 @@
 body {
-  margin: 0;
+  background-color: black;
+  color: #ff4d4d;
   font-family: 'Poppins', sans-serif;
-  background-color: #0d0d0d;
-  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
+  margin: 0;
 }
 
 .container {
   text-align: center;
-  max-width: 600px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 h1 {
-  font-size: 2.5em;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
+  font-size: 3em;
+  text-shadow: 0 0 15px red;
 }
 
-.subtitle {
-  font-size: 1.2em;
-  color: #ccc;
-  margin-bottom: 20px;
+.board {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+  border: 1px solid #ff4d4d;
 }
 
-.disclaimer {
-  background: rgba(255, 255, 255, 0.1);
-  border-left: 4px solid #f44336;
-  padding: 15px;
-  border-radius: 10px;
-  text-align: left;
-  font-size: 0.9em;
-  margin-bottom: 30px;
+.horizontal, .vertical {
+  position: absolute;
+  background-color: #c67b3e;
+  border-radius: 4px;
 }
 
-.play-button {
-  display: inline-block;
-  background: #f44336;
+.horizontal {
+  width: 220px;
+  height: 6px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vertical {
+  height: 220px;
+  width: 6px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+input {
+  background-color: #111;
   color: #fff;
+  border: 1px solid #ff4d4d;
+  padding: 10px;
+  border-radius: 4px;
+  width: 250px;
+}
+
+button {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #ff6b6b;
+}
+
+.lore-link {
+  color: #ff4d4d;
   text-decoration: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  transition: background 0.3s ease;
+  margin-left: 10px;
+  transition: 0.3s;
 }
 
-.play-button:hover {
-  background: #d32f2f;
+.lore-link:hover {
+  color: #ffb3b3;
 }
 
-@keyframes tremble {
-  0% { transform: rotate(0deg) translate(0, 0); }
-  25% { transform: rotate(0.5deg) translate(1px, -1px); }
-  50% { transform: rotate(-0.5deg) translate(-1px, 1px); }
-  75% { transform: rotate(0.5deg) translate(-1px, 0px); }
-  100% { transform: rotate(-0.5deg) translate(0px, 1px); }
+#charlieResponse {
+  margin-top: 20px;
+  font-size: 1.2em;
+  text-shadow: 0 0 5px red;
 }
-
 
