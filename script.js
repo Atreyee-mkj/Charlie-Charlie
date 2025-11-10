@@ -18,43 +18,26 @@ askBtn.addEventListener('click', () => {
     bgPlaying = true;
   }
 
-  // Reset previous response and rotation
-  response.textContent = "";
-  pencil.style.transition = "transform 1.5s ease-out";
-  pencil.style.transform = "rotate(0deg)";
+  // Random answer
+  const answer = Math.random() > 0.5 ? 'Yes' : 'No';
+  response.textContent = `Charlie says: ${answer}`;
+  response.style.opacity = 1;
 
-  // Random whisper sound
+  // Reset rotation
+  pencil.style.transform = 'rotate(0deg)';
+
+  // Whisper
   const whisper = Math.random() > 0.5 ? whisper1 : whisper2;
   whisper.volume = 0.5;
   whisper.play();
 
-  // Random answer
-  const answer = Math.random() > 0.5 ? "Yes" : "No";
+  // Rotate pencil
+  const rotationAngle = answer === 'Yes' ? 45 : -45;
+  pencil.style.transform = `rotate(${rotationAngle}deg)`;
 
-  // Rotate pencil after a short shake
-  pencil.animate(
-    [
-      { transform: 'rotate(0deg)' },
-      { transform: 'rotate(3deg)' },
-      { transform: 'rotate(-3deg)' },
-      { transform: 'rotate(0deg)' }
-    ],
-    { duration: 600, iterations: 3 }
-  );
-
-  setTimeout(() => {
-    const rotationAngle = answer === "Yes" ? 45 : -45;
-    pencil.style.transform = `rotate(${rotationAngle}deg)`;
-  }, 1800);
-
-  // Show response text after pencil stops
-  setTimeout(() => {
-    response.textContent = `Charlie says: ${answer}`;
-    response.style.opacity = 1;
-
-    // Fade out text smoothly
-    setTimeout(() => { response.style.opacity = 0; }, 4000);
-  }, 2500);
+  // Fade response
+  setTimeout(() => { response.style.opacity = 0; }, 4000);
 });
+
 
 
