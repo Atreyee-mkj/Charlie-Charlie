@@ -1,144 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
-
 body {
-  background: radial-gradient(circle at center, #000 0%, #050505 100%);
-  color: #ff4444;
-  font-family: 'Creepster', cursive;
-  text-align: center;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.title {
-  font-size: 3em;
-  margin-top: 30px;
-  text-shadow: 0 0 20px #ff0000, 0 0 50px #ff0000;
-  animation: flicker 3s infinite;
-}
-
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-  }
-  20%, 24%, 55% {
-    opacity: 0.8;
-  }
-}
-
-.game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.pencil-area {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  border: 1px solid rgba(255, 0, 0, 0.3);
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #0d0d0d;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  height: 100vh;
 }
 
-.pencil {
-  position: absolute;
-  width: 250px;
-  height: 4px;
-  background: linear-gradient(to right, #ffcc66, #cc8833);
-  border-radius: 2px;
-  box-shadow: 0 0 20px rgba(255, 204, 102, 0.8);
-  transform-origin: center;
-  transition: transform 2s ease-in-out;
-}
-
-#pencil2 {
-  transform: rotate(90deg);
-}
-
-input {
-  background: rgba(20, 20, 20, 0.9);
-  border: 1px solid #ff4444;
-  color: white;
-  padding: 10px;
-  width: 300px;
-  border-radius: 5px;
-  outline: none;
-  font-family: 'Creepster', cursive;
+.container {
   text-align: center;
-  margin-bottom: 15px;
+  max-width: 600px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
-button {
-  background-color: #ff4444;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 5px;
-  color: #fff;
-  font-family: 'Creepster', cursive;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+h1 {
+  font-size: 2.5em;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
 }
 
-button:hover {
-  background: #ff2222;
-  transform: scale(1.05);
+.subtitle {
+  font-size: 1.2em;
+  color: #ccc;
+  margin-bottom: 20px;
 }
 
-.response {
-  color: #ffcc66;
-  font-size: 1.8em;
-  text-shadow: 0 0 15px #ffcc66, 0 0 25px #ff6600;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-}
-
-.candles {
-  position: absolute;
-  bottom: 30px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 100px;
-}
-
-.candle {
-  width: 20px;
-  height: 60px;
-  background: #cc6633;
+.disclaimer {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #f44336;
+  padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 25px 10px rgba(255, 150, 50, 0.4);
-  position: relative;
+  text-align: left;
+  font-size: 0.9em;
+  margin-bottom: 30px;
 }
 
-.candle::after {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 15px;
-  background: radial-gradient(circle, #ffeb99 0%, transparent 80%);
-  border-radius: 50%;
-  box-shadow: 0 0 15px 5px #ffcc33;
-  animation: flame 2s infinite alternate;
+.play-button {
+  display: inline-block;
+  background: #f44336;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: background 0.3s ease;
 }
 
-@keyframes flame {
-  from { transform: translateX(-50%) scale(1); opacity: 0.8; }
-  to { transform: translateX(-50%) scale(1.2); opacity: 1; }
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
-  pointer-events: none;
+.play-button:hover {
+  background: #d32f2f;
 }
 
