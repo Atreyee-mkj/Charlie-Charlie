@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Charlie Charlie</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charlie Charlie Challenge</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Charlie<br>Charlie</h1>
-    <div class="board">
-      <div class="horizontal"></div>
-      <div class="vertical"></div>
+  <div class="overlay"></div>
+
+  <h1 class="title">Charlie Charlie Challenge</h1>
+
+  <div class="game-container">
+    <div class="pencil-area">
+      <div class="pencil" id="pencil"></div>
+      <div class="pencil" id="pencil2"></div>
     </div>
 
-    <div class="controls">
-      <input type="text" id="question" placeholder="Ask Charlie your question...">
-      <button id="askButton">Ask</button>
-      <a href="lore.html" class="lore-link">Read the Lore →</a>
-    </div>
+    <div id="response" class="response"></div>
 
-    <p id="charlieResponse"></p>
+    <input type="text" id="question" placeholder="Ask Charlie your question...">
+    <button id="askBtn">Ask Charlie</button>
   </div>
 
-  <audio id="bgmusic3" src="BGmusic3.mp3" loop></audio>
+  <div class="candles">
+    <div class="candle"></div>
+    <div class="candle"></div>
+  </div>
+
+  <audio id="bg-music" src="BGmusic3.mp3" loop></audio>
   <audio id="whisper1" src="BGmusic1.mp3"></audio>
   <audio id="whisper2" src="BGmusic2.mp3"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
 
   <script src="script.js"></script>
 </body>
