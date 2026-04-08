@@ -1,14 +1,20 @@
+/* ===== GLOBAL ===== */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   background-color: #0d0d0d;
   color: #fff;
+}
+
+/* ===== HOMEPAGE ===== */
+.homepage {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
+/* ===== CONTAINER ===== */
 .container {
   text-align: center;
   max-width: 600px;
@@ -18,6 +24,7 @@ body {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
+/* ===== TEXT ===== */
 h1 {
   font-size: 2.5em;
   letter-spacing: 2px;
@@ -30,6 +37,7 @@ h1 {
   margin-bottom: 20px;
 }
 
+/* ===== DISCLAIMER ===== */
 .disclaimer {
   background: rgba(255, 255, 255, 0.1);
   border-left: 4px solid #f44336;
@@ -40,6 +48,7 @@ h1 {
   margin-bottom: 30px;
 }
 
+/* ===== BUTTON ===== */
 .play-button {
   display: inline-block;
   background: #f44336;
@@ -56,3 +65,136 @@ h1 {
   background: #d32f2f;
 }
 
+/* ========================= */
+/* ===== GAME PAGE 👻 ===== */
+/* ========================= */
+
+.gamepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Overlay darkness */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 40%, black 100%);
+  z-index: -1;
+}
+
+/* Title glow */
+.title {
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px red;
+}
+
+/* Game container */
+.game-container {
+  text-align: center;
+}
+
+/* Input */
+input {
+  padding: 10px;
+  width: 250px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  margin-top: 15px;
+}
+
+/* Button */
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  background: #f44336;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #d32f2f;
+}
+
+/* Response text */
+.response {
+  margin-top: 20px;
+  font-size: 1.5em;
+  opacity: 0;
+  transition: opacity 1s;
+  text-shadow: 0 0 10px #fff;
+}
+
+/* ========================= */
+/* ✏️ PENCIL SYSTEM */
+/* ========================= */
+
+.pencil-area {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
+}
+
+/* Pencil base */
+.pencil {
+  position: absolute;
+  width: 200px;
+  height: 4px;
+  background: #fff;
+  top: 50%;
+  left: 0;
+  transform-origin: center;
+  transition: transform 1s ease-in-out;
+}
+
+/* Second pencil (cross) */
+#pencil2 {
+  transform: rotate(90deg);
+}
+
+/* ========================= */
+/* 🕯️ CANDLES */
+/* ========================= */
+
+.candles {
+  position: fixed;
+  bottom: 20px;
+  display: flex;
+  gap: 50px;
+}
+
+.candle {
+  width: 10px;
+  height: 40px;
+  background: #fff;
+  position: relative;
+}
+
+/* Flame */
+.candle::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 2px;
+  width: 6px;
+  height: 10px;
+  background: orange;
+  border-radius: 50%;
+  animation: flicker 0.2s infinite;
+}
+
+/* Flicker animation */
+@keyframes flicker {
+  0% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(1.3); opacity: 0.7; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
