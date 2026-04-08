@@ -8,35 +8,60 @@ const whisper2 = document.getElementById('whisper2');
 let bgPlaying = false;
 
 askBtn.addEventListener('click', () => {
-  const question = document.getElementById('question').value.trim();
-  if (!question) return;
+  const questionInput = document.getElementById('question');
+  const question = questionInput.value.trim();
+
+  if (!question) {
+    response.textContent = "Ask something first...";
+    response.style.opacity = 1;
+    return;
+  }
 
   // Start background music only once
   if (!bgPlaying) {
     bgMusic.volume = 0.3;
-    bgMusic.play();
+    bgMusic.play().catch(() => {}); // prevents browser errors
     bgPlaying = true;
   }
 
-  // Random answer
-  const answer = Math.random() > 0.5 ? 'Yes' : 'No';
-  response.textContent = `Charlie says: ${answer}`;
+  // Suspense 👀
+  response.textContent = "Charlie is thinking...";
   response.style.opacity = 1;
 
-  // Reset rotation
-  pencil.style.transform = 'rotate(0deg)';
+  setTimeout(() => {
+    // Better spooky answers
+    const answers = [
+      "Yes...",
+      "No...",
+      "Ask again...",
+      "He is watching...",
+      "Definitely yes 😈",
+      "Absolutely not 👀"
+    ];
 
-  // Whisper
-  const whisper = Math.random() > 0.5 ? whisper1 : whisper2;
-  whisper.volume = 0.5;
-  whisper.play();
+    const answer = answers[Math.floor(Math.random() * answers.length)];
+    response.textContent = `Charlie says: ${answer}`;
 
-  // Rotate pencil
-  const rotationAngle = answer === 'Yes' ? 45 : -45;
-  pencil.style.transform = `rotate(${rotationAngle}deg)`;
+    // Whisper sound
+    const whisper = Math.random() > 0.5 ? whisper1 : whisper2;
+    whisper.volume = 0.5;
+    whisper.play().catch(() => {});
 
-  // Fade response
-  setTimeout(() => { response.style.opacity = 0; }, 4000);
+    // Rotate pencil
+    let rotationAngle = 0;
+    if (answer.includes("Yes")) rotationAngle = 45;
+    else if (answer.includes("No")) rotationAngle = -45;
+    else rotationAngle = Math.random() * 90 - 45; // random spooky angle
+
+    pencil.style.transform = `rotate(${rotationAngle}deg)`;
+
+    // Fade out after time
+    setTimeout(() => {
+      response.style.opacity = 0;
+    }, 4000);
+
+  }, 2000); // delay = suspense 😭
+
 });
 
 
