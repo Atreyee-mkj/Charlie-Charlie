@@ -64,5 +64,18 @@ askBtn.addEventListener('click', () => {
 
 });
 
+// RANDOM jumpscare (20% chance 😈)
+if (Math.random() < 0.2) {
+  const jumpscare = document.getElementById("jumpscare");
+  const sound = document.getElementById("jumpsound");
+
+  jumpscare.style.opacity = 1;
+  sound.play().catch(() => {});
+
+  setTimeout(() => {
+    jumpscare.style.opacity = 0;
+  }, 1000);
+}
+
 
 
