@@ -49,8 +49,8 @@ askBtn.addEventListener('click', () => {
 
     // Rotate pencil
     let rotationAngle = 0;
-    if (answer.includes("Yes")) rotationAngle = 45;
-    else if (answer.includes("No")) rotationAngle = -45;
+    if (answer.includes("Yes")) rotationAngle = 0;     // points to top YES
+    else if (answer.includes("No")) rotationAngle = 90; // points to right NO
     else rotationAngle = Math.random() * 90 - 45; // random spooky angle
 
     pencil.style.transform = `rotate(${rotationAngle}deg)`;
