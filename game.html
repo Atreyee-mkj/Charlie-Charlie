@@ -6,33 +6,52 @@
   <title>Charlie Charlie Challenge</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="gamepage">
+
   <div class="overlay"></div>
 
   <h1 class="title">Charlie Charlie Challenge</h1>
 
   <div class="game-container">
+
+    <!-- Pencil Area -->
     <div class="pencil-area">
       <div class="pencil" id="pencil"></div>
       <div class="pencil" id="pencil2"></div>
     </div>
 
-    <div id="response" class="response"></div>
+    <!-- Response -->
+    <div id="response" class="response">
+      Waiting for Charlie...
+    </div>
 
-    <input type="text" id="question" placeholder="Ask Charlie your question...">
+    <!-- Input -->
+    <input 
+      type="text" 
+      id="question" 
+      placeholder="Ask Charlie your question..."
+      autocomplete="off"
+    >
+
+    <!-- Button -->
     <button id="askBtn">Ask Charlie</button>
+
   </div>
 
+  <!-- Candles -->
   <div class="candles">
     <div class="candle"></div>
     <div class="candle"></div>
   </div>
 
+  <!-- Audio -->
   <audio id="bg-music" src="BGmusic3.mp3" loop></audio>
   <audio id="whisper1" src="BGmusic1.mp3"></audio>
   <audio id="whisper2" src="BGmusic2.mp3"></audio>
 
+  <!-- IMPORTANT: script at the end (you already did this right 👍) -->
   <script src="script.js"></script>
+
 </body>
 </html>
 
