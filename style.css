@@ -191,6 +191,39 @@ button:hover {
   border-radius: 50%;
   animation: flicker 0.2s infinite;
 }
+/* Labels (YES/NO) */
+.label {
+  position: absolute;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #f44336;
+  text-shadow: 0 0 10px red;
+}
+
+/* Positioning */
+.top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.left {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 /* Flicker animation */
 @keyframes flicker {
